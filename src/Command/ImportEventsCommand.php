@@ -1,6 +1,6 @@
 <?php
 
-namespace ConversionMaker\TomorrowOneMigration\Command;
+namespace ConversionMaker\MixpanelImportExport\Command;
 
 use ConversionMaker\TomorrowOneMigration\DirectoryMapping;
 use GuzzleHttp\Client;

@@ -1,10 +1,10 @@
 {
-    "name": "conversionmaker/tomorrow-one-migration",
+    "name": "conversionmaker/mixpanel-import-export",
     "type": "project",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "ConversionMaker\\TomorrowOneMigration\\": "src/"
+            "ConversionMaker\\MixpanelImportExport\\": "src/"
         }
     },
     "authors": [
