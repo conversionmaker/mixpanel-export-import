@@ -1,0 +1,7 @@
+/.env
+/data/
+/vendor/
+/imported/
+/exported/
+
+.idea
