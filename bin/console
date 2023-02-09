@@ -3,12 +3,18 @@
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use ConversionMaker\TomorrowOneMigration\Command\ExportEventsCommand;
+use ConversionMaker\MixpanelImportExport\Command\ExportEventsCommand;
+use ConversionMaker\MixpanelImportExport\Command\ImportEventsCommand;
+use ConversionMaker\MixpanelImportExport\Command\ExportUsersCommand;
+use ConversionMaker\MixpanelImportExport\Command\ImportUsersCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Dotenv\Dotenv;
 
 (new Dotenv())->load(dirname(__DIR__) . '/.env');
 
 $application = new Application();
+$application->add(new ImportEventsCommand());
 $application->add(new ExportEventsCommand());
+$application->add(new ImportUsersCommand());
+$application->add(new ExportUsersCommand());
 $application->run();

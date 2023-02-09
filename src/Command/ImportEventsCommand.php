@@ -65,6 +65,36 @@ class ImportEventsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $finder = new Finder();
+        $finder->files()->in('/Users/florianwessels/cmai')->sortByName();
+        $final = [];
+
+        if ($finder->hasResults()) {
+            foreach ($finder as $file) {
+                $content = preg_split("/(\r\n|\n|\r)/", $file->getContents());
+                foreach ($content as $row) {
+                    $data = json_decode($row, true);
+                    if ($data === null) {
+                        continue;
+                    }
+                    $event = $data['properties'];
+                    unset($event['time'], $event['distinct_id'], $event['$insert_id'], $event['$lib_version'], $event['$mp_api_endpoint'], $event['$mp_api_timestamp_ms'], $event['mp_lib'], $event['mp_processing_time_ms'], $event['success'], $event['score'], $event['words']);
+                    $eventKey = $event['input_props'] ?? $event['input_description'];
+                    $final[$event['input_type']][$eventKey] = $event;
+                }
+            }
+        }
+
+        foreach ($final as $textType => $content) {
+            dump($textType);
+            $filesystem = new Filesystem();
+            $filesystem->dumpFile($textType, json_encode($content));
+        }
+//        $export = array_values($final);
+//        dump($export[0]);
+
+        return Command::SUCCESS;
+
+
         $finder->files()->in($this->importDirectory)->sortByName();
         $this->output = $output;
 
